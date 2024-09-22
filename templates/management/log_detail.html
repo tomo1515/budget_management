@@ -1,0 +1,20 @@
+{% extends "base/budget_base.html" %}
+{% block body %}
+
+<div>{{ detail.date}}</div>
+<h2>収入</h2>
+<div>{{ detail.income }}円</div>
+<div>{{ detail.other_income }}円</div>
+<h2>支出</h2>
+<div>{{ detail.food_expenses }}円</div>
+<div>{{ detail.rent_utilities }}円</div>
+<div>{{ detail.entertainment_transportation }}円</div>
+<div>{{ detail.clothing }}円</div>
+<div>{{ detail.other_expenses }}円</div>
+
+<div><a href="{% url 'management:budget_log' %}">戻る</a></div>
+
+
+
+
+{% endblock %}

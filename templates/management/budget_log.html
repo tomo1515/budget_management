@@ -1,0 +1,12 @@
+{% extends "base/budget_base.html" %}
+{% block body %}
+
+<ul>
+    {% for log in log_list %}
+        <li><a href="{% url 'management:log_detail' log.id %}">{{log.page_date}}</a></li>
+    {% empty %}
+        <div>収支記録がありません。</div>
+    {% endfor %}
+</ul>
+
+{% endblock %}

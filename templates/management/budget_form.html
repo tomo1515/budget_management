@@ -1,0 +1,17 @@
+{% extends "base/budget_base.html" %}
+{% block body %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ dateform.as_p}}
+    <h2>収入</h2>
+    {% csrf_token %}<!--CSRF検証を自動で行う-->
+    {{ incomeform.as_p }}
+
+    <h2>支出</h2>
+    {% csrf_token %}<!--CSRF検証を自動で行う-->
+    {{ exoensesform.as_p }}
+    <button type="submit">保存</button>
+</form>
+
+{% endblock %}

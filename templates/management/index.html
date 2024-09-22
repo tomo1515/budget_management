@@ -1,0 +1,23 @@
+{% extends "base/budget_base.html" %}
+{% block body %}
+
+<h2>収入</h2>
+<p>給料：{{ income }}円</p>
+<p>その他の収入：{{ other_income }}円</p>
+<h3>合計収入</h3>
+<p>{{ sum_income }}円</p>
+<h2>支出</h2>
+<p>食費：{{ food_expenses }}円</p>
+<p>家賃＋光熱費：{{ rent_utilities }}円</p>
+<p>娯楽費＋交通費：{{ entertainment_transportation }}円</p>
+<p>衣類：{{ clothing }}円</p>
+<p>その他の支出：{{ other_expenses }}円</p>
+<h3>合計支出</h3>
+<p>{{ sum_expenses }}円</p>
+
+
+
+<a href="{% url 'management:budget_add' %}">収支の追加</a>
+<a href="{% url 'management:budget_log' %}">履歴確認</a>
+
+{% endblock %}
