@@ -58,9 +58,6 @@ class Add(View):
         exoensesform = ExpensesForm(request.POST)
         dateform = DateForm(request.POST)
         if incomeform.is_valid() and exoensesform.is_valid() and dateform.is_valid():
-            #incomeform.save()
-            #exoensesform.save()
-            #dateform.save()
             obj = RecordDisplay()
             obj.income = incomeform.cleaned_data['income']
             obj.other_income = incomeform.cleaned_data['other_income']
@@ -84,9 +81,42 @@ class LogDetail(View):
         detail = get_object_or_404(RecordDisplay, id=id)
         return render(request,"management/log_detail.html",{"detail":detail})
 
+class LogUpdate(View):
+    def get(self,request,id):
+        detail = get_object_or_404(RecordDisplay, id=id)
+        incomeform = IncomeForm(instance=detail)#instance=detail:既に入力されている内容も含めてフォームを作成
+        exoensesform = ExpensesForm(instance=detail)
+        dateform = DateForm(instance=detail)
+        return render(request,"management/log_update.html",{'incomeform':incomeform,'exoensesform':exoensesform,'dateform':dateform})
+    
+    def post(self,request,id):
+        detail = get_object_or_404(RecordDisplay, id=id)
+        incomeform = IncomeForm(request.POST,instance=detail)
+        exoensesform = ExpensesForm(request.POST,instance=detail)
+        dateform = DateForm(request.POST,instance=detail)
+        if incomeform.is_valid() and exoensesform.is_valid() and dateform.is_valid():
+            incomeform.save()
+            exoensesform.save()
+            dateform.save()
+            return redirect("management:log_detail",id=id)
+        return render(request,"management/budget_form.html",{'incomeform':incomeform,'exoensesform':exoensesform,'dateform':dateform})
+        
+class LogDelete(View):
+    def get(self,request,id):
+        detail = get_object_or_404(RecordDisplay,id=id)
+        return render(request,'management/log_delete.html',{'detail':detail})
+    
+    def post(self,request,id):
+        detail = get_object_or_404(RecordDisplay,id=id)
+        detail.delete()
+        return redirect('management:budget_log')
+
+
 index = BudgetView.as_view()
 budget_add = Add.as_view()
 budget_log = BudgetLog.as_view()
 log_detail = LogDetail.as_view()
+log_update = LogUpdate.as_view()
+log_delete = LogDelete.as_view()
 
 

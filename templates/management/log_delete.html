@@ -1,6 +1,11 @@
 {% extends "base/budget_base.html" %}
 {% block body %}
 
+<form method="post">
+    {% csrf_token %}
+    <p>削除してよいですか？</p>
+    <button type="submit">削除</button>
+</form>
 <div>{{ detail.date}}</div>
 <h2>収入</h2>
 <div>給料：{{ detail.income }}円</div>
@@ -11,12 +16,5 @@
 <div>娯楽費＋交通費：{{ detail.entertainment_transportation }}円</div>
 <div>衣類：{{ detail.clothing }}円</div>
 <div>その他の支出：{{ detail.other_expenses }}円</div>
-
-<div><a href="{% url 'management:log_update' detail.id %}">編集</a></div>
-<div><a href="{% url 'management:log_delete' detail.id %}">削除</a></div>
-<div><a href="{% url 'management:budget_log' %}">戻る</a></div>
-
-
-
 
 {% endblock %}
