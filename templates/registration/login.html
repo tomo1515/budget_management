@@ -1,0 +1,25 @@
+{% extends 'base/base.html' %}
+
+<!-- コンテンツ -->
+{% block content %}
+<div class="container">
+  <div class="col-md-6 offset-md-3">
+    <div class="card mt-3 mb-3 bg-light">
+      <!-- カードヘッダー -->
+      <div class="card-header bg-primary text-light">
+        <h4>Log in</h4>
+      </div>
+      <!-- カードボディー -->
+      <div class="card-body">
+        <form action="" method="POST">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-primary" >ログイン</button>
+        </form>
+        <br>
+        <a href="{% url 'accounts:signup' %}">新規作成</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

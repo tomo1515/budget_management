@@ -9,4 +9,5 @@ urlpatterns = [
     path("budget/<uuid:id>",views.log_detail,name="log_detail"),
     path("budget/<uuid:id>/update/",views.log_update,name="log_update"),
     path("budget/<uuid:id>/delete/",views.log_delete,name="log_delete"),
+    
 ]

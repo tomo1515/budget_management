@@ -1,0 +1,32 @@
+{% extends "base/budget_base.html" %}
+{% block body %}
+
+<form class="mt-2" id="search-form-test" action="" method="post">
+    <div>
+      <label class="label mr-4">年月</label>
+      {% csrf_token %}
+      {{ search_form.year }}
+      {{ search_form.month }}
+    </div>
+    <button type="submit">検索</button>
+</form>
+
+<ul>
+    {% if log_list_year %}
+    {% for log in log_list_year %}
+        <li><a href="{% url 'management:log_detail' log.id %}">{{log.page_date}}</a></li>
+    {% endfor %}
+    {% endif %}
+    {% if log_list_month %}
+    {% for log in log_list_month %}
+    <li><a href="{% url 'management:log_detail' log.id %}">{{log.page_date}}</a></li>
+    {% endfor %}
+    {% endif %}
+    {% if log_list_year_month %}
+    {% for log in log_list_year_month %}
+    <li><a href="{% url 'management:log_detail' log.id %}">{{log.page_date}}</a></li>
+    {% endfor %}
+    {% endif %}
+</ul>
+
+{% endblock %}

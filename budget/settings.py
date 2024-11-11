@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'management.apps.ManagementConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
@@ -122,3 +123,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#追加
+#LOGIN_URL = 'management:login' #ログインのURL設定
+LOGIN_REDIRECT_URL = '/management/'
+LOGOUT_REDIRECT_URL = '/login/'
+
+AUTH_USER_MODEL = "accounts.User"#追加
+STATICFILES_DIRS = [
+    BASE_DIR/'static',
+]

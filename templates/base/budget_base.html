@@ -3,10 +3,14 @@
     <head>
         <meta charset="utf-8"/>
         <title>予算管理アプリ</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'management/css/base.css' %}">
     </head>
     <body>
-        <h1><a href="{% url 'management:index' %}">予算管理アプリ</a></h1>
-        {% block body %}
-        {% endblock %}
+        <div class="Wapper">
+            <h1 class="title"><a href="{% url 'management:index' %}">予算管理アプリ</a></h1>
+            {% block body %}
+            {% endblock %}
+        </div>
     </body>
 </html>

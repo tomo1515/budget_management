@@ -1,23 +1,74 @@
 {% extends "base/budget_base.html" %}
 {% block body %}
-
 <h2>収入</h2>
-<p>給料：{{ income }}円</p>
-<p>その他の収入：{{ other_income }}円</p>
-<h3>合計収入</h3>
-<p>{{ sum_income }}円</p>
+<table class="budget_table">
+    <tr>
+        <th>カテゴリー</th>
+        <th>値段</th>
+    </tr>
+    <tr>
+        <td>給料</td>
+        <td>{{ income }}円</td>
+    </tr>
+    <tr>
+        <td>その他の収入</td>
+        <td>{{ other_income }}円</td>
+    </tr>   
+</table>
 <h2>支出</h2>
-<p>食費：{{ food_expenses }}円</p>
-<p>家賃＋光熱費：{{ rent_utilities }}円</p>
-<p>娯楽費＋交通費：{{ entertainment_transportation }}円</p>
-<p>衣類：{{ clothing }}円</p>
-<p>その他の支出：{{ other_expenses }}円</p>
-<h3>合計支出</h3>
-<p>{{ sum_expenses }}円</p>
+<table class="budget_table">
+    <tr>
+        <th>カテゴリー</th>
+        <th>値段</th>
+    </tr>
+    <tr>
+        <td>食費</td>
+        <td>{{ food_expenses }}円</td>
+    </tr>
+    <tr>
+        <td>家賃＋光熱費</td>
+        <td>{{ rent_utilities }}円</td>
+    </tr>  
+    <tr>
+        <td>娯楽費＋交通費</td>
+        <td>{{ entertainment_transportation }}円</td>
+    </tr>
+    <tr>
+        <td>衣類</td>
+        <td>{{ clothing }}円</td>
+    </tr>
+    <tr>
+        <td>その他の支出</td>
+        <td>{{ other_expenses }}円</td>
+    </tr>
+</table>
+<table class="budget_table">
+    <tr>
+        <th>合計収入</th>
+        <th>合計支出</th>
+    </tr>
+    <tr>
+        <td>{{ sum_income }}円</td>
+        <td>{{ sum_expenses }}円</td>
+    </tr>
 
+</table>
+<div class="btn-container">
+    <div class="btn">
+        <a href="{% url 'management:budget_add' %}">収支の追加</a>
+    </div>
+    <div class="btn">
+        <a href="{% url 'management:budget_log' %}">履歴確認</a>
+    </div>
+    <div class="btn">
+        <a href="{% url 'accounts:my_page' user.pk %}">マイページ</a>
+    </div>
+</div>
 
-
-<a href="{% url 'management:budget_add' %}">収支の追加</a>
-<a href="{% url 'management:budget_log' %}">履歴確認</a>
+<br>
+<form action="{% url 'accounts:logout' %}" method="post">
+    {% csrf_token %}
+    <button class="logout" type="submit">ログアウト</button>
+</form>
 
 {% endblock %}

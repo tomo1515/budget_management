@@ -1,0 +1,146 @@
+body{
+    margin: auto;
+}
+.Wapper{
+  width: 50%;
+  margin:auto;
+}
+
+h1 {
+  padding: 0.4em 0.5em;/*文字の上下 左右の余白*/
+  color: #494949;/*文字色*/
+  background: #f4f4f4;/*背景色*/
+  border-left: solid 5px #7db4e6;/*左線*/
+  border-bottom: solid 3px #d7d7d7;/*下線*/
+}
+a{
+  text-decoration: none;
+}
+.title a { 
+  color:#7db4e6;
+}
+/*index.html----------------------------------------*/
+.budget_table {
+  margin-bottom: 50px;
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+  border-spacing: 0;
+ }
+ .budget_table th {
+  padding: 10px;
+  background: #e9faf9;
+  border: solid 1px #778ca3;
+ }
+ .budget_table td {
+  padding: 10px;
+  border: solid 1px #778ca3;
+ }
+ .btn-container{
+  display: flex;
+  justify-content: space-between;
+ }
+ /* ボタン（矢印付き）--------------------------------- */
+
+/* ボタンのスタイル */
+.btn a {
+	--arrow-color: #333; /* 矢印の色 */
+	display: inline-block; /* インラインブロック要素にする */
+	border: 1px solid #b5b5ae; /* ボタンの枠線の設定（太さ、種類、色） */
+	color: var(--arrow-color); /* 文字色を矢印の色と合わせる */
+	padding: 10px 50px 10px 20px; /* 内側の余白（上・右・下・左） */
+	transition: .3s all; /* 変化をゆっくりにする */
+	position: relative; /* 疑似要素の位置基準 */
+}
+
+/* 矢印のスタイル */
+.btn a:after {
+	content: ''; /* 疑似要素で矢印を描写 */
+	border-bottom: 1px solid var(--arrow-color); /* 矢印の下線の設定 */
+	border-right: 1px solid var(--arrow-color); /* 矢印の右線の設定 */
+	width: 15px; /* 矢印の幅 */
+	height: 3px; /* 矢印の高さ */
+	transform: skewX(45deg); /* 矢印の角度 */
+	position: absolute; /* 親要素からの位置指定 */
+	right: 20px; /* ボタンの右からの距離 */
+	bottom: 50%; /* ボタンの中央位置に配置 */
+	transition: .3s all; /* 変化をスムーズに */
+}
+
+/* マウスオーバー時の変化 */
+.btn a:hover {
+	--link-btn-color: #b5b5ae; /* ホバー時のボタン色 */
+	background-color: var(--link-btn-color); /* 背景色を変更 */
+	border-color: var(--link-btn-color); /* 枠線色を変更 */
+	color: #fff; /* 文字色を白に */
+}
+
+.arrowbtn-5 a:hover:after {
+	border-color: #fff; /* ホバー時に矢印の色を白に変更 */
+	right: 15px; /* 矢印の位置を左へ少し移動 */
+}
+
+/*.logout {
+  border-radius: 10px;
+  background-color: #418edf;
+  width: 30px;
+  color: white;
+}
+
+.logout::before {
+  content: url(./logout.png);
+  margin-right: 10px;
+  vertical-align: middle;
+}*/
+
+.logout {
+  display: inline-block;
+  max-width: 180px;
+  text-align: left;
+  border: 2px solid #778ca3;
+  font-size: 16px;
+  color: #778ca3;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: .4s;
+}
+
+.logout:hover {
+  background-color: #748aa2;
+  border-color: #748aa2;
+  color: #FFF;
+}
+/*index.html--------------------------------------*/
+/*budget_log.html---------------------------------*/
+.log-list {
+  padding: 0;
+}
+
+.log-list li {
+  position: relative;
+  list-style-type: none!important;/*ポチ消す*/
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  margin-bottom: 5px;
+  line-height: 1.5;
+  background: #dbebf8;
+  vertical-align: middle;
+  color: #505050;
+  border-radius: 15px 0px 0px 15px;/*左側の角丸く*/
+}
+
+.log-list li:before{ 
+  display:inline-block; 
+  vertical-align: middle;
+  /*以下白丸つくる*/
+  content:'';
+  width:1em;
+  height: 1em;
+  background: #fff;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.log-list li a{
+  color:#274a4f;
+}

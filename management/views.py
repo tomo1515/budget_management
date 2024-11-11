@@ -1,11 +1,12 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.views import View
 from .models import RecordDisplay
-from .forms import IncomeForm,ExpensesForm,DateForm
+from .forms import IncomeForm,ExpensesForm,DateForm,DateSearchForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class BudgetView(View):
+class BudgetView(LoginRequiredMixin,View):
     def get(self,request):
-        #'food_expenses','rent_utilities','entertainment_transportation','clothing','other_expenses'
+
         income_int = 0
         other_icome_int = 0
         food_expenses_int = 0
@@ -13,11 +14,7 @@ class BudgetView(View):
         entertainment_transportation_int = 0
         clothing_int = 0
         other_expenses_int = 0
-        #incomes = RecordDisplay.objects.values_list("income",flat=True)
-        #for i in incomes:
-        #    income_int += int(i)
-        #
-        #income = str(income_int)
+        
         date_all = RecordDisplay.objects.all()
         for i in date_all:
             income_int += int(i.income)
@@ -46,7 +43,8 @@ class BudgetView(View):
                        'rent_utilities':rent_utilities,'entertainment_transportation':entertainment_transportation,
                        'clothing':clothing,'other_expenses':other_expenses,'sum_expenses':sum_expenses})
 
-class Add(View):
+
+class Add(LoginRequiredMixin,View):
     def get(self,request):
         incomeform = IncomeForm()
         exoensesform = ExpensesForm()
@@ -71,17 +69,36 @@ class Add(View):
             return redirect("management:index")
         return render(request,"management/budget_form.html",{'incomeform':incomeform,'exoensesform':exoensesform,'dateform':dateform})
 
-class BudgetLog(View):
+class BudgetLog(LoginRequiredMixin,View):
     def get(self,request):
+        search_form = DateSearchForm()
         log_list = RecordDisplay.objects.order_by("page_date")
-        return render(request,"management/budget_log.html",{"log_list":log_list})
-
-class LogDetail(View):
+        return render(request,"management/budget_log.html",{"log_list":log_list,'search_form':search_form})
+    
+    def post(self,request):
+        search_form_result = DateSearchForm(request.POST)
+        search_form = DateSearchForm()
+        if search_form_result.is_valid():
+            year = search_form_result.cleaned_data.get('year')
+            month = search_form_result.cleaned_data.get('month')
+            if year != '0' and month == '0':
+                log_list_year = RecordDisplay.objects.filter(page_date__year=year)
+                return render(request,"management/budget_log_search.html",{"log_list_year":log_list_year,'search_form':search_form})
+            elif month != '0' and year == '0':
+                log_list_month = RecordDisplay.objects.filter(page_date__month=month)
+                return render(request,"management/budget_log_search.html",{"log_list_month":log_list_month,'search_form':search_form})
+            elif year != '0' and month != '0':
+                log_list_year_month = RecordDisplay.objects.filter(page_date__year=year,page_date__month=month)
+                return render(request,"management/budget_log_search.html",{"log_list_year_month":log_list_year_month,'search_form':search_form})
+            else:
+                return redirect("management:budget_log")
+                
+class LogDetail(LoginRequiredMixin,View):
     def get(self,request,id):
         detail = get_object_or_404(RecordDisplay, id=id)
         return render(request,"management/log_detail.html",{"detail":detail})
 
-class LogUpdate(View):
+class LogUpdate(LoginRequiredMixin,View):
     def get(self,request,id):
         detail = get_object_or_404(RecordDisplay, id=id)
         incomeform = IncomeForm(instance=detail)#instance=detail:既に入力されている内容も含めてフォームを作成
@@ -101,7 +118,7 @@ class LogUpdate(View):
             return redirect("management:log_detail",id=id)
         return render(request,"management/budget_form.html",{'incomeform':incomeform,'exoensesform':exoensesform,'dateform':dateform})
         
-class LogDelete(View):
+class LogDelete(LoginRequiredMixin,View):
     def get(self,request,id):
         detail = get_object_or_404(RecordDisplay,id=id)
         return render(request,'management/log_delete.html',{'detail':detail})
